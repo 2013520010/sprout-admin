@@ -4,12 +4,14 @@
   <img src="https://img.shields.io/badge/MyBatis--Plus-3.5.7-blue" alt="mybatis-plus">
   <img src="https://img.shields.io/badge/MySQL-8.0-4479A1" alt="mysql">
   <img src="https://img.shields.io/badge/Redis-7-red" alt="redis">
+  <img src="https://img.shields.io/badge/Vue-3.4-42b883" alt="vue">
+  <img src="https://img.shields.io/badge/Element%20Plus-2.7-409eff" alt="element-plus">
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="license">
 </p>
 
 <h1 align="center">🌱 新芽 Sprout Admin</h1>
 
-<p align="center">一个现代、轻量、开箱即用的 <b>权限管理系统脚手架</b>，内置 RBAC、JWT 认证、操作日志与可视化代码生成器。</p>
+<p align="center">一个现代、轻量、开箱即用的 <b>全栈权限管理系统脚手架</b>，内置 RBAC、JWT 认证、操作日志与可视化代码生成器，前后端分离，开箱即用。</p>
 
 <p align="center">
   <a href="#-功能特性">功能特性</a> ·
@@ -36,6 +38,8 @@
 
 ## 🛠 技术栈
 
+**后端**
+
 - **核心框架**：Spring Boot 3.2、Java 17
 - **安全**：Spring Security 6 + JWT（jjwt 0.12）
 - **ORM**：MyBatis-Plus 3.5（逻辑删除、分页、字段自动填充）
@@ -43,6 +47,15 @@
 - **文档**：Knife4j + OpenAPI3
 - **模板引擎**：Apache Velocity（代码生成）
 - **工具**：Lombok、Hutool
+
+**前端**
+
+- **框架**：Vue 3.4（组合式 API + `<script setup>`）
+- **构建**：Vite 5
+- **UI 组件库**：Element Plus 2.7
+- **状态管理**：Pinia
+- **路由**：Vue Router 4（含登录权限守卫）
+- **HTTP**：Axios（统一封装、令牌注入、错误处理）
 
 ## 🚀 快速开始
 
@@ -52,6 +65,7 @@
 |------|------|
 | JDK | 17+ |
 | Maven | 3.8+ |
+| Node.js | 18+ |
 | MySQL | 5.7+ / 8.0 |
 | Redis | 6+ |
 
@@ -65,16 +79,27 @@ docker-compose up -d
 
 或手动：执行 `db/init.sql`，并在 `application-dev.yml` 中修改数据库/Redis 连接。
 
-### 2. 启动项目
+### 2. 启动后端
 
 ```bash
 mvn spring-boot:run
 ```
 
-### 3. 访问
+### 3. 启动前端
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+> 前端开发服务器默认运行在 http://localhost:5173，已配置代理将 `/api` 请求转发到后端 `8080` 端口。
+
+### 4. 访问
 
 | 入口 | 地址 |
 |------|------|
+| 前端界面 | http://localhost:5173 |
 | 接口文档 | http://localhost:8080/doc.html |
 | 默认账号 | `admin` / `admin123` |
 
@@ -103,13 +128,21 @@ sprout-admin
 │   ├── 设计文档.md               # 架构与关键设计
 │   ├── 数据库设计.md             # 表结构与 E-R 关系
 │   └── 开发计划.md               # 分阶段路线图
-└── src/main/java/com/sprout/
-    ├── common/                  # 通用：Result、异常、工具类、常量
-    ├── config/                  # 配置：Security、MyBatis-Plus、Redis、跨域、文档
-    ├── security/                # 安全：JWT 过滤器、登录用户、异常处理
-    ├── system/                  # 系统：用户/角色/菜单/部门 + 认证
-    ├── log/                     # 日志：登录日志、操作日志（注解+AOP）
-    └── generator/               # 代码生成器
+├── src/main/java/com/sprout/    # 后端（Spring Boot 3）
+│   ├── common/                  # 通用：Result、异常、工具类、常量
+│   ├── config/                  # 配置：Security、MyBatis-Plus、Redis、跨域、文档
+│   ├── security/                # 安全：JWT 过滤器、登录用户、异常处理
+│   ├── system/                  # 系统：用户/角色/菜单/部门 + 认证
+│   ├── log/                     # 日志：登录日志、操作日志（注解+AOP）
+│   └── generator/               # 代码生成器
+└── frontend/                    # 前端（Vue 3 + Element Plus）
+    └── src/
+        ├── api/                 # 接口封装
+        ├── layout/              # 布局（侧边栏 + 顶栏）
+        ├── router/              # 路由 + 权限守卫
+        ├── store/               # Pinia 状态管理
+        ├── utils/               # axios 封装、token 工具
+        └── views/               # 页面（登录、首页、系统管理、日志、代码生成）
 ```
 
 ## ⚙️ 代码生成器
