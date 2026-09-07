@@ -46,6 +46,18 @@
 
 ![用户管理](docs/images/user-manage.png)
 
+### 角色管理
+
+![角色管理](docs/images/role-manage.png)
+
+### 菜单管理
+
+![菜单管理](docs/images/menu-manage.png)
+
+### 代码生成器
+
+![代码生成器](docs/images/code-generator.png)
+
 ## 🛠 技术栈
 
 **后端**
