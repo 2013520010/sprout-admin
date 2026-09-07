@@ -36,6 +36,16 @@
 | 📝 **日志管理** | 登录日志、操作日志（`@Log` 注解 + AOP 自动记录） |
 | ⚙️ **代码生成器** | 连接数据库 → 勾选表 → 一键生成 Entity/Mapper/Service/Controller 代码 |
 
+## 🖼 界面预览
+
+### 首页仪表盘
+
+![首页仪表盘](docs/images/dashboard.png)
+
+### 用户管理
+
+![用户管理](docs/images/user-manage.png)
+
 ## 🛠 技术栈
 
 **后端**
