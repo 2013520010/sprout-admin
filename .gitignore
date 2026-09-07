@@ -1,0 +1,35 @@
+# Java
+target/
+*.class
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+.settings/
+.classpath
+.project
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Env
+.env
+application-local.yml
+
+# Build
+build/
+out/
+
+# 个人笔记（本地保留，勿提交）
+个人笔记.md

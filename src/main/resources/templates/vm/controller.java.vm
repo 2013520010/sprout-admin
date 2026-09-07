@@ -1,0 +1,70 @@
+package ${packageName}.${moduleName}.controller;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sprout.common.result.PageResult;
+import com.sprout.common.result.Result;
+import ${packageName}.${moduleName}.entity.${className};
+import ${packageName}.${moduleName}.service.${className}Service;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * ${functionName} Controller
+ *
+ * @author ${author}
+ */
+@Tag(name = "${functionName}")
+@RestController
+@RequestMapping("/${moduleName}/${businessName}")
+@RequiredArgsConstructor
+public class ${className}Controller {
+
+    private final ${className}Service ${classNameLower}Service;
+
+    @Operation(summary = "分页查询")
+    @PreAuthorize("hasAuthority('${businessName}:list')")
+    @GetMapping("/list")
+    public Result<PageResult<${className}>> list(@RequestParam(defaultValue = "1") long pageNum,
+                                                 @RequestParam(defaultValue = "10") long pageSize) {
+        Page<${className}> page = ${classNameLower}Service.page(new Page<>(pageNum, pageSize),
+                new LambdaQueryWrapper<${className}>().orderByDesc(${className}::get${pkColumn.capJavaField}));
+        return Result.success(PageResult.of(page));
+    }
+
+    @Operation(summary = "查询详情")
+    @PreAuthorize("hasAuthority('${businessName}:query')")
+    @GetMapping("/{${pkJavaField}}")
+    public Result<${className}> getInfo(@PathVariable ${pkJavaType} ${pkJavaField}) {
+        return Result.success(${classNameLower}Service.getById(${pkJavaField}));
+    }
+
+    @Operation(summary = "新增")
+    @PreAuthorize("hasAuthority('${businessName}:add')")
+    @PostMapping
+    public Result<Void> add(@RequestBody ${className} entity) {
+        ${classNameLower}Service.save(entity);
+        return Result.success();
+    }
+
+    @Operation(summary = "修改")
+    @PreAuthorize("hasAuthority('${businessName}:edit')")
+    @PutMapping
+    public Result<Void> edit(@RequestBody ${className} entity) {
+        ${classNameLower}Service.updateById(entity);
+        return Result.success();
+    }
+
+    @Operation(summary = "删除")
+    @PreAuthorize("hasAuthority('${businessName}:remove')")
+    @DeleteMapping("/{${pkJavaField}s}")
+    public Result<Void> remove(@PathVariable List<${pkJavaType}> ${pkJavaField}s) {
+        ${classNameLower}Service.removeByIds(${pkJavaField}s);
+        return Result.success();
+    }
+}
